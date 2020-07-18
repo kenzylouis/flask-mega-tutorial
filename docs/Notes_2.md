@@ -1,3 +1,5 @@
+## Module 2
+
 0. Prerequisites
 Module-1
 
@@ -24,3 +26,5 @@ touch app/templates/base.html
 ```
 - add a link to the home (index) page and a block content for the body
 - add extends to index.html and only leave the block content
+
+Next: [module 03](Notes_3.md)

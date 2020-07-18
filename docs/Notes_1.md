@@ -1,4 +1,6 @@
 
+## Module 1
+
 0. Prerequisites
 Install flask
 
@@ -36,3 +38,5 @@ pip install python-dotenv
 ```shell
 touch .flaskenv
 ```
+
+Next: [module 02](Notes_2.md)
