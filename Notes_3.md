@@ -34,5 +34,12 @@ touch app/templates/login.html
 ```
 - update `routes.py` to add a login route that will render `login.html`. Import Loginform from form and render it by passing an instance of it. add a link to it in `base.html`.
 
+6. In routes.py, update the `login()` function to receive/handle the data passed in the form then emit a flash message.
+- flash messages need to be passed to the base template so that all other templates can inherit from it.
+
+7. Update the `login.html` to handle Validation of errors in login form template
+
+8. Use `url_for()` to return the url for each method defined in the views function. Do it for `base.html` and `routes.py`.
+
 
 Next: [module 04](Notes_4.md)
