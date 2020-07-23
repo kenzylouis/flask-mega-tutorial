@@ -120,4 +120,101 @@ the 1st table relationship we will define is:
 #### 7. Create the Post table
 Update `models.py` and add a Post class
 
+The User class has a new posts field, that is initialized with `db.relationship`. This is not an actual database field, but a high-level view of the relationship between users and posts, and for that reason it isn't in the database diagram.
+
+For a one-to-many relationship, a `db.relationship` field is normally defined on the "one" side, and is used as a convenient way to get access to the "many". 
+
+#### 8. Perform a DB update with migration
+Migrate the new updated schema into the DB
+```shell
+flask db migrate -m "posts table"
+
+INFO  [alembic.runtime.migration] Context impl SQLiteImpl.
+INFO  [alembic.runtime.migration] Will assume non-transactional DDL.
+INFO  [alembic.autogenerate.compare] Detected added table 'post'
+INFO  [alembic.autogenerate.compare] Detected added index 'ix_post_timestamp' on '['timestamp']'
+  Generating /Users/klouis/projects/python-projects/flask-mega-tutorial/migrations/versions/b89c3ff8e001_posts_table.py ...  done
+```
+### 9. Verification
+
+From the terminal, open python IDLE and import the db module and do some actions
+
+```python
+python
+>>> from app import db
+>>> from app.models import User, Post
+>>> ## Create a user
+>>> u = User(username='john', email='john@example.com')
+>>> db.session.add(u)
+>>> db.session.commit()
+>>> User.query.first()
+<User john>
+>>> User.query.all()
+[<User john>]
+>>> User.query.get(1)
+<User john>
+```
+
+to perform action to the DB, we need to open a session to it with `db.session` and we add objects with `db.session.add(user1)` or `db.session.add(post1)`. The data will be save in the DB when we commit with `db.session.commit()`.
+
+The database can answer a query that returns all the users `User.query.all()`:
+```python
+>>> users = User.query.all()
+>>> users
+[<User john>, <User susan>]
+>>> for u in users:
+...     print(u.id, u.username)
+...
+1 john
+2 jenny
+```
+
+All models have a query attribute that is the entry point to run database queries.
+```python
+>>> u = User.query.get(1)
+>>> u
+<User john>
+>>> ### to add a post
+>>> u = User.query.get(1)
+>>> p = Post(body="This is my first post. I hope you enjoy it.", author=u)
+>>> db.session.add(p)
+>>> db.session.commit()
+>>>
+>>>
+>>>
+>>> Post.query.all()
+[<Post This is my first post. I hope you enjoy it.>]
+```
+#### 10. Use flask shell and shell context
+
+inside the python REPL, you have to always import the app. In flask shell, it pre-imports the intance for you.
+
+```python
+python
+>>> app
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+NameError: name 'app' is not defined
+>>>exit()
+
+flask shell
+>>> app
+<Flask 'app'>
+>>>
+```
+
+We can configure a "shell context", which is a list of other symbols to pre-import. Pass a decortor `shell_context_processor` in the entry point of our app and create a method called `make_app_context()`
+
+now we can do this:
+```
+flask shell
+
+>>> db
+<SQLAlchemy engine=sqlite:////Users/klouis/projects/python-projects/flask-mega-tutorial/app.db>
+>>> User
+<class 'app.models.User'>
+>>> Post
+<class 'app.models.Post'>
+>>>
+```
 Next: [module 05](Notes_5.md)
