@@ -41,4 +41,9 @@ add a decorator to `index` to enforce login_required
 After enforcing login, to redirect the user to the requested page, the `login_required()` decorator intercepts the request, then respond with the `/login` URL and append a query string for the next page. So my complete redirect page will be `/login?next=<page>`. the `next` query string argument is set to the original URL, therefore the application knows how to redirect back after login.
 - Add login in `routes.py` to process the `next` query string.
 
+### 10. Display Logged in User
+
+Update `index.html` template and use Flask-Login's `current_user` to interact with my user subsystem.
+remove `user` template from `routes.py`
+
 
