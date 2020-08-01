@@ -46,4 +46,13 @@ After enforcing login, to redirect the user to the requested page, the `login_re
 Update `index.html` template and use Flask-Login's `current_user` to interact with my user subsystem.
 remove `user` template from `routes.py`
 
+remember to add the user using `flask shell` as follow
+```python
+>>> u = User(username='shirley', email='shirley@example.com')
+>>> u.set_password('red')
+>>> db.session.add(u)
+>>> db.session.commit()
+```
+
+then launch the app with `flask run`.
 
