@@ -28,5 +28,17 @@ create in models a `user_load()` function to get the user id in order to manage 
 ### 6. Create the route for login
 Update `routes.py` and add the logic for login
 
+### 7. Create route for logout
+update `routes.py` and add logic for logout
+update `base.html` to add link for login/logout
+
+### 8. Add login required capacity
+update `app/__init__.py` to add which view is the login view
+add a decorator to `index` to enforce login_required
+
+### 9. Add logic for the next page
+
+After enforcing login, to redirect the user to the requested page, the `login_required()` decorator intercepts the request, then respond with the `/login` URL and append a query string for the next page. So my complete redirect page will be `/login?next=<page>`. the `next` query string argument is set to the original URL, therefore the application knows how to redirect back after login.
+- Add login in `routes.py` to process the `next` query string.
 
 
