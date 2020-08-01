@@ -56,3 +56,18 @@ remember to add the user using `flask shell` as follow
 
 then launch the app with `flask run`.
 
+### 11. Add the registration form
+
+update `app/forms.py` to add the registration form. Add validation for email, username and extra methods to check if the username and password are already in the DB.
+
+- Need an external dependency for the Email validator in WTForms;
+```shell
+pip install email-validator
+```
+
+- Create the `register.html` template for that form.
+- Update the `login.html` to add a link to the `register` page.
+- Add functions in `route.py` to handle the registration.
+
+
+
